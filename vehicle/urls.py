@@ -13,12 +13,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path,include
+
+from django.urls import path
+from .views import (
+     VehicleApiView , VehicleAllocationApiView)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('user/',include('user.urls')),
-    path('vehicle/',include('vehicle.urls')),
-    path('job/',include('jobs.urls'))
+    path('', VehicleApiView.as_view({
+        "post":"create_vehicle",
+        "get":"get_listing",
+        "patch":"edit_vehicle",
+        "delete":"delete_vehicle"}),
+         ),
+
+    path('allocation', VehicleAllocationApiView.as_view({
+        "post":"create_allocation",
+        "get":"get_listing",
+        "patch":"edit_allocation",
+        "delete":"delete_allocation"}),
+         ),
 ]

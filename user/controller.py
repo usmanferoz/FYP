@@ -7,8 +7,9 @@ class UserController():
         users = User.objects.get(id=1)
         serializer = GetUSerSerializer(users,many=False)
         return Response(serializer.data,200)
+        
     
     def signup(self,request):
         users = User.objects.get(id=1)
-        serializer = GetUSerSerializer(users,many=False)
+        serializer = SignupSerializer(users,many=False)
         return Response(serializer.data,200)

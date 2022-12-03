@@ -15,9 +15,21 @@ Including another URLconf
 """
 
 from django.urls import path
-from . import views
+from .views import (
+    UserAuthView , UserApiView)
 
 urlpatterns = [
-    path('',views.UserApi.as_view()),
-    path('signup',views.SignupApi.as_view())
+    path('login', UserAuthView.as_view({
+        "post": "login"}),
+         ),
+
+    path('signup', UserAuthView.as_view({
+        "post": "signup"}),
+         ),
+    path('customer-user', UserApiView.as_view({
+        "post":"create_user",
+        "get":"get_listing",
+        "patch":"edit_user",
+        "delete":"delete_user"}),
+         ),
 ]
