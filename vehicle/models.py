@@ -16,7 +16,8 @@ class Vehicle(LogsMixin):
 
     vehicle_fuel = models.CharField(max_length=300, null=True, blank=True)
     customer = models.ForeignKey(Customer,on_delete=models.CASCADE,null=True,blank=True)
-
+    colour = models.CharField(max_length=300, null=True, blank=True)
+    milage = models.CharField(max_length=300, null=True, blank=True)
     def __str__(self):
         return self.vehicle_name
 
