@@ -20,6 +20,8 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to="user-avatar/", null=True, blank=True)
     login_token = models.TextField(null=True, blank=True)
     customer = models.ForeignKey(Customer,on_delete=models.CASCADE,null=True,blank=True)
+    cnic = models.CharField(max_length=10000, null=True, blank=True)
+    contact = models.CharField(max_length=10000, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

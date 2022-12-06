@@ -32,4 +32,8 @@ urlpatterns = [
         "patch":"edit_allocation",
         "delete":"delete_allocation"}),
          ),
+
+    path('driver-vehicle', VehicleApiView.as_view({
+        "get":"get_driver_vehicle"}),
+         ),
 ]

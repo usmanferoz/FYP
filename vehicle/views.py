@@ -86,6 +86,20 @@ class VehicleApiView(ModelViewSet):
             return Response(create_resonse(True, Message.server_error.value, data=[]))
 
 
+    def get_driver_vehicle(self,request):
+        try:
+            user = request.user
+            driver_vehicle = VehicleAllocation.objects.filter(employee_id = user.id , customer_id = user.customer.id)
+            if driver_vehicle.exists():
+                vehicle = self.model.objects.filter(id = driver_vehicle.last().vehicle_id , customer_id = user.customer.id)
+                if vehicle.exists():
+                    serialized_data = self.serializer_class(vehicle.last(),many=False).data
+                    return Response(create_resonse(False,Message.success.value,[serialized_data]))
+                return Response(create_resonse(False,Message.record_not_found.value,[]))
+            return Response(create_resonse(False, Message.record_not_found.value, []))
+        except Exception as e:
+            print(e)
+            return Response(create_resonse(True,Message.server_error.value,[]))
 
 
 class VehicleAllocationApiView(ModelViewSet):

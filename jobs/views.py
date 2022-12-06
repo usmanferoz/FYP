@@ -92,7 +92,7 @@ class JobApiView(ModelViewSet):
         try:
             customer_id = request.user.customer_id
             if request.query_params.get("id"):
-                Jobs = self.model.objects.filter(id=request.query_params.get("id"),customer_id=customer_id , driver = request.user.id)
+                Jobs = self.model.objects.filter(id=request.query_params.get("id"),customer_id=customer_id , driver = request.user.id , job_status = JobStatusChoices.PENDING)
                 if Jobs.exists():
                     serializer = self.serializer_class(Jobs.last(), many=False).data
                     return Response(create_resonse(False, Message.success.value, [serializer]))
