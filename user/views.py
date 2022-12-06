@@ -66,6 +66,12 @@ class UserApiView(ModelViewSet):
     def get_listing(self, request):
         try:
             customer_id = request.user.customer_id
+            if request.query_params.get("id"):
+                users = self.model.objects.filter(id=request.query_params.get("id") , customer_id=customer_id)
+                if users.exists():
+                    serializer = UserSerializer(users, many=False).data
+                    return Response(create_resonse(False, Message.success.value, [serializer]))
+
             users = self.model.objects.filter(customer_id=customer_id)
             if users.exists():
                 serializer = UserSerializer(users,many=True).data
