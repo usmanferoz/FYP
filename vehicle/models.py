@@ -12,6 +12,7 @@ class Vehicle(LogsMixin):
     vehicle_company = models.CharField(max_length=300, null=True, blank=True)
     avatar = models.ImageField(upload_to="vehicle-avatar/", null=True, blank=True)
     vehicle_last_location = jsonfield.JSONField()
+    chassis_no = models.CharField(max_length=300, null=True, blank=True)
 
     vehicle_fuel = models.CharField(max_length=300, null=True, blank=True)
     customer = models.ForeignKey(Customer,on_delete=models.CASCADE,null=True,blank=True)
