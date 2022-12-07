@@ -54,7 +54,7 @@ class JobApiView(ModelViewSet):
 
         except Exception as e:
             print(e)
-            return Response(create_resonse(True, Message.server_error.value, data=[]))
+            return Response(create_resonse(True, e, data=[]))
 
     def edit_job(self, request):
         try:
