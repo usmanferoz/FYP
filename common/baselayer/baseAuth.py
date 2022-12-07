@@ -30,13 +30,13 @@ class UserAuthentication(BaseAuthentication):
 
         user = User.objects.filter(email=payload["email"]).first()
 
-        if not user:
-            if not payload["password"]:
-                user = User(email=payload["email"])
-                user.username = payload["username"] if payload["username"] else payload["email"]
-                user.first_name = payload["first_name"] if payload["first_name"] else None
-                user.last_name = payload["last_name"] if payload["last_name"] else None
-                user.status = "1"
-                user.save()
+        # if not user:
+        #     if not payload["password"]:
+        #         user = User(email=payload["email"])
+        #         user.username = payload["username"] if payload["username"] else payload["email"]
+        #         user.first_name = payload["first_name"] if payload["first_name"] else None
+        #         user.last_name = payload["last_name"] if payload["last_name"] else None
+        #         user.status = "1"
+        #         user.save()
 
         return (user, None)
