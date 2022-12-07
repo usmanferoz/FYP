@@ -46,6 +46,7 @@ class JobApiView(ModelViewSet):
     def create_job(self, request):
         try:
             request.data['customer'] = request.user.customer_id
+            print(request.data)
             serialized_data = self.serializer_class(data=request.data)
             if serialized_data.is_valid():
                 serialized_data.save()
