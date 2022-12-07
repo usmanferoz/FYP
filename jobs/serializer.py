@@ -19,7 +19,7 @@ class JobSerializer(ModelSerializer):
         data['dropoff_location_coordinates'] = instance.dropoff_location_coordinates
         data['job_status'] = instance.job_status
         data['driver_id'] = instance.driver_id
-        data['driver_name'] = instance.driver.first_name
+        # data['driver_name'] = instance.driver.first_name
         data['customer_id'] = instance.driver.customer_id
         data['created_at'] = instance.created_at
 
