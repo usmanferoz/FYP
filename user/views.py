@@ -69,7 +69,7 @@ class UserApiView(ModelViewSet):
             if request.query_params.get("id"):
                 users = self.model.objects.filter(id=request.query_params.get("id") , customer_id=customer_id)
                 if users.exists():
-                    serializer = UserSerializer(users, many=False).data
+                    serializer = UserSerializer(users.last(), many=False).data
                     return Response(create_resonse(False, Message.success.value, [serializer]))
 
             users = self.model.objects.filter(customer_id=customer_id)

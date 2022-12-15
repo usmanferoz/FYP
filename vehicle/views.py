@@ -88,10 +88,12 @@ class VehicleApiView(ModelViewSet):
 
     def get_driver_vehicle(self,request):
         try:
-            user = request.user
-            driver_vehicle = VehicleAllocation.objects.filter(employee_id = user.id , customer_id = user.customer.id)
+            if not request.query_params.get("user_id"):
+                return Response(create_resonse(False, Message.query_params_missing.value, []))
+            user = request.query_params.get("user_id")
+            driver_vehicle = VehicleAllocation.objects.filter(employee_id = request.query_params.get("id"))
             if driver_vehicle.exists():
-                vehicle = self.model.objects.filter(id = driver_vehicle.last().vehicle_id , customer_id = user.customer.id)
+                vehicle = self.model.objects.filter(id = driver_vehicle.last().vehicle_id)
                 if vehicle.exists():
                     serialized_data = self.serializer_class(vehicle.last(),many=False).data
                     return Response(create_resonse(False,Message.success.value,[serialized_data]))
