@@ -22,5 +22,8 @@ class VehicleAllocationSerializer(ModelSerializer):
         data['vehicle_number'] = instance.vehicle.vehicle_number
         data['emoloyee_email'] = instance.employee.email
         data['empolyee_type'] = instance.employee.user_type
+        data['empolyee_id'] = instance.employee.id
+        data['empolyee_id'] = instance.employee.id
+        data['employee_name'] = instance.employee.first_name
 
         return data
