@@ -91,7 +91,7 @@ class VehicleApiView(ModelViewSet):
             if not request.query_params.get("user_id"):
                 return Response(create_resonse(False, Message.query_params_missing.value, []))
             user = request.query_params.get("user_id")
-            driver_vehicle = VehicleAllocation.objects.filter(employee_id = request.query_params.get("id"))
+            driver_vehicle = VehicleAllocation.objects.filter(employee_id = request.query_params.get("user_id"))
             if driver_vehicle.exists():
                 vehicle = self.model.objects.filter(id = driver_vehicle.last().vehicle_id)
                 if vehicle.exists():
