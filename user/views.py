@@ -12,6 +12,8 @@ from .models import User , Customer
 from .serializer import (
     UserLoginSerializer, UserSignupSerializer , UserSerializer )
 from django.db.models import F , Prefetch
+from jobs.models import Job
+from vehicle.models import VehicleAllocation , Vehicle
 
 class UserAuthView(ModelViewSet):
     authentication_classes = []
@@ -121,6 +123,25 @@ class UserApiView(ModelViewSet):
                 target_user.delete()
                 return Response(create_resonse(False, Message.success.value, []))
             return Response(create_resonse(True, Message.user_not_exists.value, data=[]))
+
+        except Exception as e:
+            print(e)
+            return Response(create_resonse(True, Message.server_error.value, data=[]))
+
+
+    def get_dashboard(self,request):
+        try:
+            customer = request.user.customer_id
+            data = {}
+            total_users = self.model.objects.filter(customer_id = customer).all().count()
+            total_jobs = Job.objects.filter(customer_id = customer).all().count()
+            total_vehicles = Vehicle.objects.filter(customer_id = customer).all().count()
+            total_vehicles_allocations = VehicleAllocation.objects.filter(customer_id = customer).all().count()
+            data['total_users'] = total_users
+            data['total_jobs'] = total_jobs
+            data['total_vehicles'] = total_vehicles
+            data['total_vehicles_allocations'] = total_vehicles_allocations
+            return Response(create_resonse(False, Message.success.value, data=[data]))
 
         except Exception as e:
             print(e)

@@ -32,4 +32,7 @@ urlpatterns = [
         "patch":"edit_user",
         "delete":"delete_user"}),
          ),
+    path('dashboard', UserApiView.as_view({
+        "get":"get_dashboard"}),
+         ),
 ]
